@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 app = Flask(__name__)
 posts=[
 	{
@@ -11,10 +11,10 @@ posts=[
 	}
 	]
 @app.route("/")
-def view():
-    return render_template('view.html',posts=posts, title='View')
+def home():
+    return render_template('home.html',posts=posts)
 
-@app.route("/accesscontrol")
+@app.route("/view")
 def access():
-    return render_template('accesscontrol.html',title='Jeevan')
+    return render_template('view.html',title='Jeevan')
 
