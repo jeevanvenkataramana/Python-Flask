@@ -11,10 +11,10 @@ posts=[
 	}
 	]
 @app.route("/")
-def grant():
-    return render_template('home.html',posts=posts)
-
-@app.route("/viewrecords")
 def view():
-    return render_template('viewrecords.html')
+    return render_template('view.html',posts=posts, title='View')
+
+@app.route("/accesscontrol")
+def access():
+    return render_template('accesscontrol.html',title='Jeevan')
 
