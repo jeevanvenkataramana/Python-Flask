@@ -2,7 +2,13 @@
 {% block content %}
 
 	{% for post in posts %}
-		<h1>{{ post.Name}}</h1>
-		<p>{{ post.Email}}</p>
+	<article class="media content-section">
+	  <div class="media-body">
+	    <div class="article-metadata">
+	      <a class="mr-2" href="#">{{ post.Name }}</a>
+	      </div>
+	    <h2><a class="article-title" href="#">{{ post.Email }}</a></h2>
+	   </div>
+	</article>
 	{% endfor %}
 {% endblock content%}
