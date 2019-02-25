@@ -10,4 +10,4 @@ records=db.assets.find()
 
 print(type(records))
 for record in records:
-	print(record)
+	print(type(record))
