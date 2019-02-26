@@ -1,19 +1,31 @@
+import pymongo
+from pymongo import MongoClient
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForm, LoginForm
 app = Flask(__name__)
 app.config['SECRET_KEY']='586cf3dd15dd5dd52a77ea3c1604ddf1'
 
+client = pymongo.MongoClient()
+db=client.user_data
+records=db.reg_details.find()
+posts=list()
+for record in records:
+    temp=dict()
+    temp['Name']=record['username']
+    temp['Email']=record['email']
+    posts.append(temp)
 
-posts=[
-	{
-	'Name':'Jeevan Venkataramana',
-	'Email':'jeevan.venkataramana@gmail.com'
-	},
-	{
-	'Name':'Pavan',
-	'Email':'pavan.haravu@gmail.com'
-	}
-	]
+
+#posts=[
+#	{
+#	'Name':'Jeevan Venkataramana',
+#	'Email':'jeevan.venkataramana@gmail.com'
+#	},
+#	{
+#	'Name':'Pavan',
+#	'Email':'pavan.haravu@gmail.com'
+#	}
+#	]
 @app.route("/")
 def home():
     return render_template('home.html',posts=posts)
