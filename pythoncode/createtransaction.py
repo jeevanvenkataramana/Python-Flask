@@ -44,4 +44,12 @@ else:
     sent_create_tx = bdb.transactions.send_commit(fulfilled_create_tx)
     print('CREATE transaction id: {}'.format(fulfilled_create_tx['id']))
     if(sent_create_tx == fulfilled_create_tx):
-        print("Success")
+    	print("Success")
+    	temp=list()
+    	temp1=list()
+    	for record in records:
+    		temp=record['transactions_owned']
+    		temp1=record['transactions_created']
+    	temp.append(fulfilled_create_tx['id'])
+    	temp1.append(fulfilled_create_tx['id'])
+    	db.reg_details.update({"email":email},{"$set":{'transactions_owned':temp,'transactions_created':temp1}})

@@ -16,7 +16,9 @@ password=input()
 sample=generate_keypair()
 private=sample.private_key
 public=sample.public_key
-print("{} {} {} {} {}".format(username,email,password,private,public))
-data={'username':username,'email':email,'password':password,'private':private,'public':public}
+transactions_created=list()
+transactions_owned=list()
+print("{} {} {} {} {} {} {}".format(username,email,password,private,public,transactions_created, transactions_owned))
+data={'username':username,'email':email,'password':password,'private':private,'public':public,'transactions_created':transactions_created,'transactions_owned':transactions_owned}
 result=db.reg_details.insert_one(data)
 print('Created with id {}'.format(result.inserted_id))
