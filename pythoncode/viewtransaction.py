@@ -25,7 +25,7 @@ else:
         publickey=record['public']
         privatekey=record['private']
         print("List of transactions created:")
-        print(record['transactions_created'])
+        print(type(record['transactions_created']))
         print("Transactions Currenlty Owned:")
         print(record['transactions_owned'])
 

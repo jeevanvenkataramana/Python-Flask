@@ -5,11 +5,9 @@
 	<article class="media content-section">
 	  <div class="media-body">
 	    <div class="article-metadata">
-	      <a class="mr-2" href="#">{{ post.type}}</a>
+	      <a class="mr-2" href="#">{{ post.Name }}</a>
 	      </div>
-		{% for ids in post.ids %}
-	   	 <h6><a class="article-title" href="#">{{ ids }}</a></h6>
-		{% endfor %}
+	    <h2><a class="article-title" href="#">{{ post.Email }}</a></h2>
 	   </div>
 	</article>
 	{% endfor %}

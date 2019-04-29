@@ -14,33 +14,26 @@ posts=list()
 
 
 
+
 bdb_root_url = 'http://localhost:9984'
 bdb = BigchainDB(bdb_root_url)
 client = pymongo.MongoClient()
 db=client.user_data
 
 
-#posts=[
-#	{
-#	'Name':'Jeevan Venkataramana',
-#	'Email':'jeevan.venkataramana@gmail.com'
-#	},
-#	{
-#	'Name':'Pavan',
-#	'Email':'pavan.haravu@gmail.com'
-#	}
-#	]
+posts=list()
+
 @app.route("/")
 def home():
     return render_template('home.html')
 
 @app.route("/view")
 def view():
-    return render_template('view.html',title='Jeevan')
+    return render_template('view.html',title='View Page')
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template('userdashboard.html',title='Jeevan')
+    return render_template('userdashboard.html',title='Your Dashboard', posts=posts)
 
 @app.route("/register", methods=['GET','POST'])
 def register():
@@ -64,6 +57,25 @@ def login():
         records=db.reg_details.find( { "$and": [ {"email":form.email.data},{"password":form.password.data} ] } )
         if(records.count()==1):
             flash('You have been logged in!', 'success')
+            posts.clear()
+            temp=dict()
+            temp.clear()
+            temp['type']='Transactions Created'
+            for record in records:
+                temp['ids']=list()
+                for i in range(len(record['transactions_created'])):
+                    temp['ids'].append(record['transactions_created'][i])
+                posts.append(temp)
+                print(posts)
+            temp2=dict()
+            temp2.clear()
+            temp2['type']='Transactions Owned'
+            for record in records:
+                temp2['ids']=list()
+                for i in range(len(record['transactions_owned'])):
+                    temp2['ids'].append(record['transactions_owned'][i])
+            posts.append(temp2)
+            print(posts)
             return redirect(url_for('dashboard'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')

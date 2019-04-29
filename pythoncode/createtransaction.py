@@ -49,6 +49,7 @@ else:
     	temp1=list()
     	for record in records:
     		temp=record['transactions_owned']
+    		print(temp)
     		temp1=record['transactions_created']
     	temp.append(fulfilled_create_tx['id'])
     	temp1.append(fulfilled_create_tx['id'])
