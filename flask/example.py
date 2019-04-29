@@ -59,21 +59,16 @@ def login():
             flash('You have been logged in!', 'success')
             posts.clear()
             temp=dict()
-            temp.clear()
-            temp['type']='Transactions Created'
-            for record in records:
-                temp['ids']=list()
-                for i in range(len(record['transactions_created'])):
-                    temp['ids'].append(record['transactions_created'][i])
-                posts.append(temp)
-                print(posts)
             temp2=dict()
+            temp.clear()
             temp2.clear()
+            temp['type']='Transactions Created'
             temp2['type']='Transactions Owned'
             for record in records:
-                temp2['ids']=list()
-                for i in range(len(record['transactions_owned'])):
-                    temp2['ids'].append(record['transactions_owned'][i])
+                temp['ids']=record['transactions_created']
+                temp2['ids']=record['transactions_owned']
+            posts.append(temp)
+            print(posts)
             posts.append(temp2)
             print(posts)
             return redirect(url_for('dashboard'))

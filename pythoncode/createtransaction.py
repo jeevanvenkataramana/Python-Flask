@@ -22,12 +22,16 @@ records=db.reg_details.find({"email":email})
 if(records.count()!=1):
     print("Not a valid user")
 else:
+    temp=list()
+    temp1=list()
     print("Enter Hash Value:")
     hashvalue=input()
     for record in records:
         _id=str(record['_id'])
         publickey=record['public']
         privatekey=record['private']
+        temp=record['transactions_owned']
+        temp1=record['transactions_created']
     data_dict={'data':{'type':'PHD','hashvalue':hashvalue,'_id':_id,'date':posix_now}}
     print('creating transaction: {}'.format(data_dict))
     tx_metadata={'notes':'created transaction for '+email}
@@ -45,12 +49,7 @@ else:
     print('CREATE transaction id: {}'.format(fulfilled_create_tx['id']))
     if(sent_create_tx == fulfilled_create_tx):
     	print("Success")
-    	temp=list()
-    	temp1=list()
-    	for record in records:
-    		temp=record['transactions_owned']
-    		print(temp)
-    		temp1=record['transactions_created']
+    	print(temp,temp1)
     	temp.append(fulfilled_create_tx['id'])
     	temp1.append(fulfilled_create_tx['id'])
     	db.reg_details.update({"email":email},{"$set":{'transactions_owned':temp,'transactions_created':temp1}})
